@@ -20,6 +20,7 @@ const char*        WINDOW_TITLE  = "GLFW";
 const float        CAMERA_FOV    = 45.f;
 const float        CAMERA_NEAR   = 0.1f;
 const float        CAMERA_FAR    = 100.f;
+const float        CAMERA_SPEED  = 1.f;
 
 // Callbacks
 void framebufferSizeCallback(GLFWwindow* window, GLint width, GLint height);
@@ -143,6 +144,10 @@ int main()
   // Camera
   Camera camera(WINDOW_WIDTH, WINDOW_HEIGHT, glm::vec3(0.f, 0.f, 2.f));
 
+  // Delta Time
+  float dt = 0.f;
+  double prevTime = glfwGetTime();
+
   // Main Loop
   while (!glfwWindowShouldClose(window))
   {
@@ -150,8 +155,13 @@ int main()
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     shaderProgram.Activate();
 
+    // Updating the Delta Time
+    double currentTime = glfwGetTime();
+    float dt = currentTime - prevTime;
+    prevTime = currentTime;
+
     // Updating Inputs and the Camera
-    camera.Inputs(window);
+    camera.Inputs(window, dt);
     camera.Matrix(CAMERA_FOV, CAMERA_NEAR, CAMERA_FAR, shaderProgram, "cameraMatrix");
 
     // Matrices

@@ -7,5 +7,6 @@ extern const char*        WINDOW_TITLE;
 extern const float        CAMERA_FOV;
 extern const float        CAMERA_NEAR;
 extern const float        CAMERA_FAR;
+extern const float        CAMERA_SPEED;
 
 #endif // CONSTANTS_HPP

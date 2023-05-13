@@ -22,7 +22,7 @@ class Camera
     int width;
     int height;
 
-    float speed = 0.1f;
+    float speed = CAMERA_SPEED;
     float sensitivity = 100.f;
 
     // Constructor
@@ -30,7 +30,7 @@ class Camera
 
     // Functions
     void Matrix(float FOVdegrees, float nearPlane, float farPlane, Shader& shader, const char* uniform);
-    void Inputs(GLFWwindow* window);
+    void Inputs(GLFWwindow* window, float dt);
 };
 
 #endif // CAMERA_HPP
