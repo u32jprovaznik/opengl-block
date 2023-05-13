@@ -18,12 +18,12 @@ void framebufferSizeCallback(GLFWwindow* window, GLint width, GLint height);
 
 // Vertices and Indices
 GLfloat vertices[] = {
-  -0.5f,  -0.5f, 1.f,
-   0.0f,  -0.5f, 1.f,
-  -0.25f,  0.0f, 1.f,
-   0.5f,  -0.5f, 1.f,
-   0.25f,  0.0f, 1.f,
-   0.0f,   0.5f, 1.f,
+  -0.5f,  -0.5f, 1.f, 1.f, 0.f, 0.f,
+   0.0f,  -0.5f, 1.f, 0.f, 1.f, 0.f,
+  -0.25f,  0.0f, 1.f, 0.f, 0.f, 1.f,
+   0.5f,  -0.5f, 1.f, 1.f, 1.f, 0.f,
+   0.25f,  0.0f, 1.f, 0.f, 1.f, 1.f,
+   0.0f,   0.5f, 1.f, 1.f, 0.f, 1.f,
 };
 GLuint indices[] = {
   0, 1, 2,
@@ -87,7 +87,9 @@ int main()
   VBO VBO1(vertices, sizeof(vertices));
   EBO EBO1(indices, sizeof(indices));
 
-  VAO1.LinkVBO(VBO1, 0);
+  VAO1.LinkAttrib(VBO1, 0, 3, GL_FLOAT, 6 * sizeof(GLfloat), (void*)0);
+  VAO1.LinkAttrib(VBO1, 1, 3, GL_FLOAT, 6 * sizeof(GLfloat), (void*)(3 * sizeof(GLfloat)));
+
   VAO1.Unbind();
   VBO1.Unbind();
   EBO1.Unbind();

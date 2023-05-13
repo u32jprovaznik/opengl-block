@@ -14,7 +14,7 @@ class VAO
     GLuint ID;
 
     // Functions
-    void LinkVBO(VBO& VBO, GLuint layout);
+    void LinkAttrib(VBO& VBO, GLuint size, GLuint layout, GLenum type, GLsizei stride, void* offset);
     void Bind();
     void Unbind();
     void Delete();
