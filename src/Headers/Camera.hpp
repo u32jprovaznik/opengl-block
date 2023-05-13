@@ -23,7 +23,8 @@ class Camera
     int height;
 
     float speed = CAMERA_SPEED;
-    float sensitivity = 100.f;
+    float sensitivity = CAMERA_SENSITIVITY;
+    bool mouseLocked = false;
 
     // Constructor
     Camera(int width, int height, glm::vec3 position);

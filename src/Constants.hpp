@@ -8,5 +8,6 @@ extern const float        CAMERA_FOV;
 extern const float        CAMERA_NEAR;
 extern const float        CAMERA_FAR;
 extern const float        CAMERA_SPEED;
+extern const float        CAMERA_SENSITIVITY;
 
 #endif // CONSTANTS_HPP

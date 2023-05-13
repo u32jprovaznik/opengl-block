@@ -1,8 +1,6 @@
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include <glm/glm.hpp>
-#include <glm/gtc/matrix_transform.hpp>
-#include <glm/gtc/type_ptr.hpp>
 #include <iostream>
 
 #include "Headers/Shader.hpp"
@@ -14,13 +12,14 @@
 #include "Constants.hpp"
 
 // Constants
-const unsigned int WINDOW_WIDTH  = 800;
-const unsigned int WINDOW_HEIGHT = 600;
-const char*        WINDOW_TITLE  = "GLFW";
-const float        CAMERA_FOV    = 45.f;
-const float        CAMERA_NEAR   = 0.1f;
-const float        CAMERA_FAR    = 100.f;
-const float        CAMERA_SPEED  = 1.f;
+const unsigned int WINDOW_WIDTH       = 800;
+const unsigned int WINDOW_HEIGHT      = 600;
+const char*        WINDOW_TITLE       = "GLFW";
+const float        CAMERA_FOV         = 45.f;
+const float        CAMERA_NEAR        = 0.1f;
+const float        CAMERA_FAR         = 100.f;
+const float        CAMERA_SPEED       = 1.f;
+const float        CAMERA_SENSITIVITY = 75.f;
 
 // Callbacks
 void framebufferSizeCallback(GLFWwindow* window, GLint width, GLint height);
