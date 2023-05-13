@@ -9,12 +9,17 @@
 #include "Headers/VAO.hpp"
 #include "Headers/VBO.hpp"
 #include "Headers/EBO.hpp"
+#include "Headers/Camera.hpp"
 #include "Utils/Macroneq.hpp"
+#include "Constants.hpp"
 
 // Constants
 const unsigned int WINDOW_WIDTH  = 800;
 const unsigned int WINDOW_HEIGHT = 600;
 const char*        WINDOW_TITLE  = "GLFW";
+const float        CAMERA_FOV    = 45.f;
+const float        CAMERA_NEAR   = 0.1f;
+const float        CAMERA_FAR    = 100.f;
 
 // Callbacks
 void framebufferSizeCallback(GLFWwindow* window, GLint width, GLint height);
@@ -135,9 +140,8 @@ int main()
   // Depth Test
   glEnable(GL_DEPTH_TEST);
 
-  // Rotation
-  float rotation = 0.f;
-  double prevTime = glfwGetTime();
+  // Camera
+  Camera camera(WINDOW_WIDTH, WINDOW_HEIGHT, glm::vec3(0.f, 0.f, 2.f));
 
   // Main Loop
   while (!glfwWindowShouldClose(window))
@@ -146,28 +150,14 @@ int main()
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     shaderProgram.Activate();
 
-    double currentTime = glfwGetTime();
-    if (currentTime - prevTime >= 1/60)
-    {
-      rotation += 0.5f;
-      prevTime = currentTime;
-    }
+    // Updating Inputs and the Camera
+    camera.Inputs(window);
+    camera.Matrix(CAMERA_FOV, CAMERA_NEAR, CAMERA_FAR, shaderProgram, "cameraMatrix");
 
     // Matrices
     glm::mat4 model = glm::mat4(1.f);
     glm::mat4 view = glm::mat4(1.f);
     glm::mat4 proj = glm::mat4(1.f);
-
-    model = glm::rotate(model, glm::radians(rotation), glm::vec3(0.f, 1.f, 0.f));
-    view = glm::translate(view, glm::vec3(0.f, 0.f, -4.f));
-    proj = glm::perspective(glm::radians(45.f), (float)(WINDOW_WIDTH / WINDOW_HEIGHT), 0.1f, 100.f);
-
-    int modelLocation = glGetUniformLocation(shaderProgram.ID, "model");
-    glUniformMatrix4fv(modelLocation, 1, GL_FALSE, glm::value_ptr(model));
-    int viewLocation = glGetUniformLocation(shaderProgram.ID, "view");
-    glUniformMatrix4fv(viewLocation, 1, GL_FALSE, glm::value_ptr(view));
-    int projLocation = glGetUniformLocation(shaderProgram.ID, "proj");
-    glUniformMatrix4fv(projLocation, 1, GL_FALSE, glm::value_ptr(proj));
 
     VAO1.Bind();
     glDrawElements(GL_TRIANGLES, sizeof(vertices) / sizeof(GLfloat), GL_UNSIGNED_INT, 0);

@@ -21,14 +21,17 @@ find_package(glm REQUIRED)
 add_executable(
   ${PROJECT_NAME}
   src/Main.cpp
+  src/Constants.hpp
   src/Classes/Shader.cpp
   src/Classes/VAO.cpp
   src/Classes/VBO.cpp
   src/Classes/EBO.cpp
+  src/Classes/Camera.cpp
   src/Headers/Shader.hpp
   src/Headers/VAO.hpp
   src/Headers/VBO.hpp
   src/Headers/EBO.hpp
+  src/Headers/Camera.hpp
   src/Utils/Macroneq.cpp
   src/Utils/Macroneq.hpp
 )
