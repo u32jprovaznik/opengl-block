@@ -7,7 +7,6 @@ EBO::EBO(GLuint indices[], GLintptr size)
   glGenBuffers(1, &this->ID);
   glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, this->ID);
   glBufferData(GL_ELEMENT_ARRAY_BUFFER, size, indices, GL_STATIC_DRAW);
-  glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 }
 
 // Functions
