@@ -4,6 +4,7 @@
 
 #include "Headers/Shader.hpp"
 #include "Headers/VBO.hpp"
+#include "Headers/EBO.hpp"
 #include "Utils/Macroneq.hpp"
 
 // Constants
@@ -80,24 +81,22 @@ int main()
 
   // VAO, VBO, and EBO
   GLuint VAO;
-  GLuint EBO;
 
   glGenVertexArrays(1, &VAO);
-  glGenBuffers(1, &EBO);
-
   glBindVertexArray(VAO);
-  VBO VBO1(vertices, sizeof(vertices));
-  VBO1.Bind();
 
-  glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
-  glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
+  VBO VBO1(vertices, sizeof(vertices));
+  EBO EBO1(indices, sizeof(indices));
+
+  VBO1.Bind();
+  EBO1.Bind();
 
   glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat), (void*)0);
   glEnableVertexAttribArray(0);
 
   glBindVertexArray(0);
   VBO1.Unbind();
-  glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+  EBO1.Unbind();
 
   // Main Loop
   while (!glfwWindowShouldClose(window))
@@ -115,7 +114,7 @@ int main()
   defaultShader.Delete();
   glDeleteVertexArrays(1, &VAO);
   VBO1.Delete();
-  glDeleteBuffers(1, &EBO);
+  EBO1.Delete();
   return 0;
 }
 
